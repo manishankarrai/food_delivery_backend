@@ -17,6 +17,10 @@ let schema = mongoose.Schema ;
     address: String,
     mobile_no :String ,
     profile_url: String ,
+    role: {
+        type: String ,
+        default: "admin"
+    }
  });
 
 

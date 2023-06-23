@@ -3,7 +3,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
 const create_user = async (req, res) => {
-  let url = "http://localhost:3000/images/users/" + req.file.filename;
+  let url = "http://192.168.1.12:3000/images/users/" + req.file.filename;
   let salt = await bcrypt.genSalt(10);
   let passwordHash = await bcrypt.hash(req.body.password, salt);
   req.body.password = passwordHash;
@@ -21,8 +21,8 @@ const create_user = async (req, res) => {
     res.send({ message: "email is already exist", value: false });
   } else {
     let data = await User(user_data).save();
-
-    res.send({
+ 
+    res.status(201).send({
       message: "user create successfully",
       user: data,
       value: true,
@@ -33,7 +33,7 @@ const create_user = async (req, res) => {
 
 const user_login = async (req, res) => {
   let email_exist = await User.findOne({ email: req.body.email });
-  console.log("email_exist", email_exist);
+  //console.log("email_exist", email_exist);
   if (!email_exist) {
     res
       .status(404)

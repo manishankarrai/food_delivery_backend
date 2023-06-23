@@ -61,7 +61,7 @@
 //          }
 // }
 // // let upload_profile = async(req,res)  => {
-// //   let  url = 'http://localhost:3000/journalist/' + req.file.filename;
+// //   let  url = 'http://192.168.1.12:3000/journalist/' + req.file.filename;
 // //   let data = await User.updateOne({_id: req.params.id} , { $set:  newdata });
   
 // // }

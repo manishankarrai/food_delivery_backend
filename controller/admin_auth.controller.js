@@ -3,7 +3,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
 const create_admin = async (req, res) => {
-  let url = "http://localhost:3000/images/admins/" + req.file.filename;
+  let url = "http://192.168.1.12:3000/images/admins/" + req.file.filename;
   let salt = await bcrypt.genSalt(10);
   let passwordHash = await bcrypt.hash(req.body.password, salt);
   req.body.password = passwordHash;
@@ -21,8 +21,10 @@ const create_admin = async (req, res) => {
     res.send({ message: "email is already exist", value: false });
   } else {
     let data = await Admin(admin_data).save();
+   
+    
 
-    res.send({
+    res.status(201).send({
       message: "admin create successfully",
       admin: data,
       value: true,
@@ -54,12 +56,14 @@ const admin_login = async (req, res) => {
     let admin = email_exist;
     //signing token with admin id
     console.log("admin._id", admin._id);
+   
 
     var token = jwt.sign({
       id: admin._id
     }, process.env.SECRET_ADMIN, {
       expiresIn: 8640000
     });
+ //  req.session.role = 'admin';
 
     //responding to client request with admin profile success message and  access token .
     res.status(200)

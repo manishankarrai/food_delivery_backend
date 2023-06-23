@@ -3,7 +3,7 @@ const { Banner } = require('../model/banner.model');
 
 
  const uploadbanner =  async(req , res)=> {
-    let banner_url =  "http://localhost:3000/images/banner/" + req.file.filename ;
+    let banner_url =  "http://192.168.1.12:3000/images/banner/" + req.file.filename ;
     console.log(req.file.filename);
     let data  = req.body ;
     data.banner_url  =  banner_url ;
@@ -57,7 +57,7 @@ const deletebanner =  async(req,res)=> {
 
 const updatebanner = async(req,res)=> {
     let data  =  req.body;
-    let url =  "http://localhost:3000/images/banner/" + req.file.filename ; 
+    let url =  "http://192.168.1.12:3000/images/banner/" + req.file.filename ; 
     data.banner_url = url ;
     console.log("update data");
 

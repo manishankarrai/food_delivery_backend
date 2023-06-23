@@ -3,7 +3,7 @@ const { Category } = require('../model/category.model');
 
 
 const uploadcategory =  async(req , res)=> {
-    let banner_url =  "http://localhost:3000/images/category/" + req.file.filename ;
+    let banner_url =  "http://192.168.1.12:3000/images/category/" + req.file.filename ;
     console.log(req.file.filename);
     let data  = req.body ;
     data.banner_url  =  banner_url ;
@@ -54,7 +54,7 @@ const deletecategory = async(req,res)=> {
 
 const updatecategory = async(req,res)=> {
     let data  =  req.body;
-    let url =  "http://localhost:3000/images/category/" + req.file.filename ; 
+    let url =  "http://192.168.1.12:3000/images/category/" + req.file.filename ; 
     data.banner_url = url ;
     console.log("update data");
 

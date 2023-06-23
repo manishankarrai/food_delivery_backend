@@ -29,15 +29,15 @@ let  category_up = upload_category.single('banner');
 
 const storage_product = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/images/product')
+        cb(null, 'public/images/products')
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + file.originalname)
+        cb(null, file.originalname)
     }
 });
 let upload_product = multer({ storage: storage_product  });
 
-let  product_up = upload_category.single('product_img');
+let  product_up = upload_product.single('product_img');
 
 
 const storage_user = multer.diskStorage({
@@ -48,8 +48,8 @@ const storage_user = multer.diskStorage({
     filename: (req, file, cb) => {
         cb(null, Date.now() + file.originalname)
     }
-});
-let upload_user = multer({ storage: storage_user });
+});   
+let upload_user = multer({ storage: storage_user }); 
 
 let uploadProfile_user = upload_user.single('profile');
 
@@ -67,7 +67,22 @@ let upload_admin = multer({ storage: storage_admin });
 let uploadProfile_admin = upload_admin.single('profile');
 
 
+//upload for specail category 
+const storage_speCategory = multer.diskStorage({
+    destination: (req, file, cb) => {
+        let journalist_dir = 'public/images/speCategory/';
+        cb(null, journalist_dir);
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + file.originalname)
+    }
+});
+let upload_speCategory = multer({ storage: storage_speCategory });
+
+let uploadSpeCategory = upload_speCategory.single('profile');
 
 
 
-module.exports = {  category_up ,upload_banner  , product_up , uploadProfile_user , uploadProfile_admin};
+
+module.exports = {  category_up ,upload_banner  , product_up , uploadProfile_user , uploadSpeCategory
+    , uploadProfile_admin};

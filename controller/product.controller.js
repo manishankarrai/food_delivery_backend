@@ -2,7 +2,7 @@ const { Product } = require('../model/product.model');
 
 
 const uploadproduct = async(req , res)=> {
-    let banner_url =  "http://localhost:3000/images/product/" + req.file.filename ;
+    let banner_url =  "/images/products/" + req.file.filename ;
     console.log(req.file.filename);
     let data  = req.body ;
     data.profile_url  =  banner_url ;
@@ -25,20 +25,20 @@ const getallproduct = async (req,res)=> {
 
 
 const getproduct = async (req,res)=> {
-    console.log(req.params.id);
-    let data  =  {
+    console.log(req.params.id); 
+    let data  =  {  
         _id: req.params.id  
     }
     let result = await Product.findOne(data);
     if(result) {
-        res.send({message: "successs" , value: true , data: result});
+        res.send({message: "successs" , value: true , data: result}); 
     } else {
         res.send({message : "there is some error , please tyr again" , value: false});
     }
 }
 
 
-const updateproduct = async(req,res)=> {
+const  deleteproduct = async(req,res)=> {
     let data  =  {
         _id: req.params.id  
     }
@@ -50,11 +50,11 @@ const updateproduct = async(req,res)=> {
         res.send({message: "try again"   ,value: false})
     })
 }
+ 
 
-
-const deleteproduct = async(req,res)=> {
+const updateproduct = async(req,res)=> {
     let data  =  req.body;
-    let url =  "http://localhost:3000/images/product/" + req.file.filename ; 
+    let url =  "/images/products/" + req.file.filename ; 
     data.profile_url = url ;
     console.log("update data");
 
@@ -70,9 +70,28 @@ const deleteproduct = async(req,res)=> {
 } 
 
 
+//search api for product 
+let search_product = async (req, res) => {
+    console.log(req.params.key);
+    try {
+        let data = await Product.find({
+            "$or": [
+                { "product_name": { $regex: req.params.key, $options: 'i' } } ,
+                { "category": { $regex: req.params.key, $options: 'i' } } ,
+                 { "meta_descri": { $regex: req.params.key, $options: 'i' } } ,
+                 { "meta_keyword": { $regex: req.params.key, $options: 'i' } } ,
+                 { "meta_title": { $regex: req.params.key, $options: 'i' } } 
 
+            ]
+        });
+        res.send({message: "successfully" , data: data  ,value: true });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({message : 'Internal Server Error' , data: null , value: false});
+    }
+}
 
 
 module.exports = {
-    uploadproduct , getallproduct , getproduct , updateproduct , deleteproduct 
+    uploadproduct , getallproduct , getproduct , updateproduct , deleteproduct ,search_product
 }
