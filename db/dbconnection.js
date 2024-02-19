@@ -16,7 +16,7 @@
 // }
 
 // function databaseConncetion() {
-//  return mongoose.connect('mongodb://localhost:27017/m_delight') ;
+//  return mongoose.connect('mongodb://localhost:27017/food_delivery') ;
 // }
 
 // main_conn();
