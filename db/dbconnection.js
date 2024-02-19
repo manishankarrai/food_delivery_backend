@@ -27,7 +27,7 @@
 const mongoose = require('mongoose');
 
 // Connection URL
-const url = 'mongodb://127.0.0.1:27017/m_delight';
+const url = 'mongodb://127.0.0.1:27017/food_delivery';
 
 // Connect to MongoDB
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
